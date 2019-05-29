@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
 import LoadingBar from 'react-redux-loading';
-import Nav from './Nav';
+import TopNav from './TopNav';
 import HomePage from './HomePage';
 import QuestionPage from './QuestionPage';
 import AddQuestionPage from './AddQuestionPage';
@@ -21,8 +21,8 @@ class App extends Component {
         <Fragment>
           <LoadingBar />
           {this.props.userLoggedIn === true
-            ? <div>
-                <Nav />
+            ? <div className="container">
+                <TopNav />
                 <Route path='/' exact component={HomePage} />
                 <Route path='/add' component={AddQuestionPage} />
                 <Route path='/leaderboard' component={LeaderboardPage} />

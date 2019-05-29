@@ -1,21 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PollList from './PollList';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import Poll from './Poll';
 
 class HomePage extends Component {
   render() {
     const { answeredQuestionIds, unansweredQuestionIds } = this.props;
 
     return (
-      <div>
-        <h3>HomePage</h3>
-        <PollList
-          title="UnansweredQuestions"
-          pollData={unansweredQuestionIds} />
-        <PollList
-          title="AnsweredQuestions"
-          pollData={answeredQuestionIds} />
-      </div>
+      <Tabs
+        defaultActiveKey="unansweredQuestions"
+        id="uncontrolled-tab-example">
+        <Tab
+          eventKey="unansweredQuestions"
+          title="Unanswered Questions">
+          {unansweredQuestionIds.map((id) => (
+            <Poll questionId={id} key={id} />
+          ))}
+        </Tab>
+        <Tab
+          eventKey="answeredQuestions"
+          title="Answered Questions">
+          {answeredQuestionIds.map((id) => (
+            <Poll questionId={id} key={id} />
+          ))}
+        </Tab>
+      </Tabs>
     );
   }
 }

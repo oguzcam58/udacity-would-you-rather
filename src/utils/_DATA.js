@@ -24,7 +24,7 @@ let users = {
   johndoe: {
     id: 'johndoe',
     name: 'John Doe',
-    avatarURL: 'https://i.pravatar.cc/150?img=7',
+    avatarURL: 'https://i.pravatar.cc/150?img=4',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -119,6 +119,18 @@ function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
+export function _getUsers () {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({...users}), 1000)
+  })
+}
+
+export function _getQuestions () {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({...questions}), 1000)
+  })
+}
+
 function formatQuestion ({ optionOneText, optionTwoText, author }) {
   return {
     id: generateUID(),
@@ -133,18 +145,6 @@ function formatQuestion ({ optionOneText, optionTwoText, author }) {
       text: optionTwoText,
     }
   }
-}
-
-export function _getUsers () {
-  return new Promise((res, rej) => {
-    setTimeout(() => res({...users}), 1000)
-  })
-}
-
-export function _getQuestions () {
-  return new Promise((res, rej) => {
-    setTimeout(() => res({...questions}), 1000)
-  })
 }
 
 export function _saveQuestion (question) {

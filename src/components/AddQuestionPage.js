@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { Form, Button } from 'react-bootstrap';
+import { handleAddQuestion } from '../actions/shared';
+import { connect } from 'react-redux';
 
 class AddQuestionPage extends Component {
   state = {
@@ -21,11 +24,9 @@ class AddQuestionPage extends Component {
 
     const { optionOne, optionTwo } = this.state;
 
-    // dispatch new question
+    this.props.dispatch(handleAddQuestion(optionOne, optionTwo));
 
     this.setState(() => ({
-      optionOne: '',
-      optionTwo: '',
       toHome: true,
     }));
   }
@@ -38,41 +39,42 @@ class AddQuestionPage extends Component {
     }
 
     return (
-      <div>
-        <h3>Create New Question</h3>
-        <form onSubmit={this.handleSubmit}>
-          <strong>Would you rather ...</strong>
+      <Form className="container" onSubmit={this.handleSubmit}>
+        <Form.Group>
+          <Form.Text className="header">
+            <h3>Create New Question</h3>
+          </Form.Text>
+        </Form.Group>
 
-          <br />
+        <Form.Group>
+          <Form.Label>Would you rather?</Form.Label>
+        </Form.Group>
 
-          <input
-            type="text"
-            placeholder="Enter Option One Text Here"
+        <Form.Group>
+          <Form.Label>First Option</Form.Label>
+          <Form.Control
             value={optionOne}
-            onChange={(e) => this.handleChange(e, "optionOne")}
+            onChange={(e) => this.handleChange(e, 'optionOne')}
+            type="input"
+            placeholder="Enter option one"
           />
+        </Form.Group>
 
-          <hr />
-
-          <input
-            type="text"
-            placeholder="Enter Option Two Text Here"
+        <Form.Group>
+          <Form.Label>Second Option</Form.Label>
+          <Form.Control
             value={optionTwo}
-            onChange={(e) => this.handleChange(e, "optionTwo")}
+            onChange={(e) => this.handleChange(e, 'optionTwo')}
+            type="input"
+            placeholder="Enter option two"
           />
-
-          <br />
-
-          <button
-            className='btn'
-            type='submit'
-            disabled={optionOne === '' || optionTwo === ''}>
-            Submit
-          </button>
-        </form>
-      </div>
+        </Form.Group>
+        <Button variant="outline-primary" type="submit">
+          Submit
+        </Button>
+      </Form>
     );
   }
 }
 
-export default AddQuestionPage;
+export default connect()(AddQuestionPage);
